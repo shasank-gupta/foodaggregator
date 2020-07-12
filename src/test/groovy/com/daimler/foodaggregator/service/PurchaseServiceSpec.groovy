@@ -2,6 +2,7 @@ package com.daimler.foodaggregator.service
 
 
 import com.daimler.foodaggregator.datastore.FoodInventory
+import com.daimler.foodaggregator.exception.ItemNotFoundException
 import com.daimler.foodaggregator.model.FoodItem
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -25,7 +26,7 @@ class PurchaseServiceSpec extends Specification {
         service.purchaseItemByName("funny")
 
         then:
-        thrown(Exception.class)
+        thrown(ItemNotFoundException.class)
     }
 
     def "test purchaseItemByName for success"() {
@@ -43,7 +44,7 @@ class PurchaseServiceSpec extends Specification {
         service.purchaseItemByNameAndQuantity("funny", 15)
 
         then:
-        thrown(Exception.class)
+        thrown(ItemNotFoundException.class)
     }
 
     def "test purchaseItemByNameAndQuantity for success"() {
@@ -74,7 +75,7 @@ class PurchaseServiceSpec extends Specification {
         FoodItem res = service.getItemByNameQtyAndPrice("testFood", 11, 440)
 
         then:
-        thrown(Exception.class)
+        thrown(ItemNotFoundException.class)
     }
 
     def "Test inventoryStats"() {
@@ -83,7 +84,25 @@ class PurchaseServiceSpec extends Specification {
 
         then:
         inventoryList
-        inventoryList.size() == 3
+        inventoryList.size() == 4
+    }
+
+    def "Test fastBuy for exception"() {
+        when:
+        service.fastBuy("dud")
+
+        then:
+        thrown(ItemNotFoundException.class)
+    }
+
+    def "Test fastBuy for success"() {
+        when:
+        FoodItem item = service.fastBuy("foobar")
+
+        then:
+        noExceptionThrown()
+        item
+        item.name == "foobar"
     }
 
 }

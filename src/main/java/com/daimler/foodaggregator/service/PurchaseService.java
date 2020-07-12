@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 @Service
 public class PurchaseService {
@@ -89,18 +88,15 @@ public class PurchaseService {
     }
 
     public List<FoodItem> getInventory() {
-        return inventory
+        return new ArrayList<>(inventory
                 .getStore()
-                .entrySet()
-                .stream()
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+                .values());
     }
 
     public FoodItem fastBuy(String name) {
         Flux<FoodItem> itemFlux = Flux.empty();
         for (String vendor : properties.getVendorIds()) {
-            Flux.concat(itemFlux, supplier.getFoodFromVendor(vendor));
+            itemFlux = Flux.concat(itemFlux, supplier.getFoodFromVendor(vendor));
         }
         return Optional.ofNullable(itemFlux
                 .filter(foodItem -> name.equalsIgnoreCase(foodItem.getName()))
