@@ -38,7 +38,7 @@ public class PurchaseService {
                 break;
             }
         }
-        return response.orElseThrow(() -> new ItemNotFoundException("Not_Found"));
+        return response.orElseThrow(() -> new ItemNotFoundException("NOT_FOUND"));
     }
 
     public FoodItem purchaseItemByNameAndQuantity(String name, Integer quantity) {
