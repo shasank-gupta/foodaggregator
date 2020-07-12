@@ -2,6 +2,7 @@ package com.daimler.foodaggregator.service;
 
 import com.daimler.foodaggregator.config.ApplicationProperties;
 import com.daimler.foodaggregator.datastore.FoodInventory;
+import com.daimler.foodaggregator.exception.ItemNotFoundException;
 import com.daimler.foodaggregator.model.FoodItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class PurchaseService {
                 break;
             }
         }
-        return response.orElseThrow(() -> new IllegalStateException("NOT_FOUND"));
+        return response.orElseThrow(() -> new ItemNotFoundException("Not_Found"));
     }
 
     public FoodItem purchaseItemByNameAndQuantity(String name, Integer quantity) {
@@ -53,7 +54,7 @@ public class PurchaseService {
                 break;
             }
         }
-        return response.orElseThrow(() -> new IllegalStateException("NOT_FOUND"));
+        return response.orElseThrow(() -> new ItemNotFoundException("NOT_FOUND"));
     }
 
     public FoodItem getItemByNameQtyAndPrice(String name, Integer qty, Integer price) {
@@ -83,7 +84,7 @@ public class PurchaseService {
                 }
             }
             response.get().ifPresent(foodItem -> inventory.updateItem(name, qty));
-            return response.get().orElseThrow(() -> new IllegalStateException("NOT_FOUND"));
+            return response.get().orElseThrow(() -> new ItemNotFoundException("NOT_FOUND"));
         });
     }
 
@@ -104,6 +105,6 @@ public class PurchaseService {
         return Optional.ofNullable(itemFlux
                 .filter(foodItem -> name.equalsIgnoreCase(foodItem.getName()))
                 .blockFirst()
-        ).orElseThrow(() -> new IllegalStateException("NOT_FOUND"));
+        ).orElseThrow(() -> new ItemNotFoundException("NOT_FOUND"));
     }
 }
