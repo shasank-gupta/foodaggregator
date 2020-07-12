@@ -1,0 +1,5 @@
+app:
+  vendorIds:
+    - testFood
+
+  baseUrl: http://localhost:3000/
