@@ -1,6 +1,6 @@
 package com.daimler.foodaggregator.service
 
-import com.daimler.foodaggregator.PurchaseService
+
 import com.daimler.foodaggregator.datastore.FoodInventory
 import com.daimler.foodaggregator.model.FoodItem
 import org.springframework.beans.factory.annotation.Autowired

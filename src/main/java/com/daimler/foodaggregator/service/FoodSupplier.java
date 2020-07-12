@@ -1,4 +1,4 @@
-package com.daimler.foodaggregator;
+package com.daimler.foodaggregator.service;
 
 import com.daimler.foodaggregator.model.FoodItem;
 import org.springframework.beans.factory.annotation.Autowired;

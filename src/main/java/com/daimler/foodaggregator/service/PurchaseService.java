@@ -1,4 +1,4 @@
-package com.daimler.foodaggregator;
+package com.daimler.foodaggregator.service;
 
 import com.daimler.foodaggregator.config.ApplicationProperties;
 import com.daimler.foodaggregator.datastore.FoodInventory;
