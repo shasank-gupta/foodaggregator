@@ -1,6 +1,7 @@
 app:
   vendorIds:
-    - testFood
-    - test2
+    - fruits
+    - vegetables
+    - grains
 
-  baseUrl: http://localhost:3000/
+  baseUrl: https://my-json-server.typicode.com/2020-abhilash/mock-api/

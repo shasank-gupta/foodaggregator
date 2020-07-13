@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
 @SpringBootTest
-class PurchaseServiceSpec extends Specification {
+class PurchaseServiceImplSpec extends Specification {
 
     @Autowired
-    PurchaseService service;
+    PurchaseServiceImpl service
 
     @Autowired
-    FoodInventory inventory;
+    FoodInventory inventory
 
     void setItem() {
         inventory.addItem(new FoodItem("1", "testFood", 15, "410"))
@@ -31,12 +31,12 @@ class PurchaseServiceSpec extends Specification {
 
     def "test purchaseItemByName for success"() {
         when:
-        FoodItem res = service.purchaseItemByName("testFood")
+        FoodItem res = service.purchaseItemByName("Apple")
 
         then:
         noExceptionThrown()
         res
-        res.getQuantity() == 10
+        res.getQuantity() == 30
     }
 
     def "test purchaseItemByNameAndQuantity for exception"() {
@@ -49,7 +49,7 @@ class PurchaseServiceSpec extends Specification {
 
     def "test purchaseItemByNameAndQuantity for success"() {
         when:
-        FoodItem res = service.purchaseItemByNameAndQuantity("testFood", 10)
+        FoodItem res = service.purchaseItemByNameAndQuantity("carrot", 10)
 
         then:
         noExceptionThrown()
@@ -72,7 +72,7 @@ class PurchaseServiceSpec extends Specification {
 
     def "test purchaseByItemQtyAndPrice for Exception"() {
         when:
-        FoodItem res = service.getItemByNameQtyAndPrice("testFood", 11, 440)
+        service.getItemByNameQtyAndPrice("testFood", 11, 440)
 
         then:
         thrown(ItemNotFoundException.class)
@@ -84,7 +84,7 @@ class PurchaseServiceSpec extends Specification {
 
         then:
         inventoryList
-        inventoryList.size() == 4
+        inventoryList.size() == 9
     }
 
     def "Test fastBuy for exception"() {
@@ -97,12 +97,12 @@ class PurchaseServiceSpec extends Specification {
 
     def "Test fastBuy for success"() {
         when:
-        FoodItem item = service.fastBuy("foobar")
+        FoodItem item = service.fastBuy("Carrot")
 
         then:
         noExceptionThrown()
         item
-        item.name == "foobar"
+        item.name == "Carrot"
     }
 
 }

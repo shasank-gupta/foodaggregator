@@ -1,7 +1,7 @@
 package com.daimler.foodaggregator.controller;
 
 import com.daimler.foodaggregator.model.FoodItem;
-import com.daimler.foodaggregator.service.PurchaseService;
+import com.daimler.foodaggregator.service.PurchaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +13,7 @@ import java.util.List;
 public class AggregatorController {
 
     @Autowired
-    private PurchaseService service;
+    private PurchaseServiceImpl service;
 
     @GetMapping("/buy-item")
     public FoodItem getItemByName(@RequestParam String name) {

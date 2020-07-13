@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
-public class PurchaseService {
+public class PurchaseServiceImpl {
     @Autowired
     private FoodSupplier supplier;
 
@@ -53,6 +53,7 @@ public class PurchaseService {
                 break;
             }
         }
+        response.ifPresent(foodItem -> foodItem.setQuantity(quantity));
         return response.orElseThrow(() -> new ItemNotFoundException("NOT_FOUND"));
     }
 
